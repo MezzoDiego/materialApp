@@ -1,0 +1,35 @@
+<div class="main-container">
+<div>
+    <h2>Sicuro di voler procedere all'eliminazione?</h2>
+</div>
+
+<dl>
+    <dt class="title">Id:</dt>
+    <dd class="row">{{userToDelete?.id}}</dd>
+</dl>
+
+<dl>
+    <dt class="title">Nome:</dt>
+    <dd class="row">{{userToDelete?.nome}}</dd>
+</dl>
+
+<dl>
+    <dt class="title">Cognome:</dt>
+    <dd class="row">{{userToDelete?.cognome}}</dd>
+</dl>
+
+<dl>
+    <dt class="title">username:</dt>
+    <dd class="row">{{userToDelete?.username}}</dd>
+</dl>
+
+<dl>
+    <dt class="title">Data Di Nascita:</dt>
+    <dd class="row">{{userToDelete?.dataDiNascita}}</dd>
+</dl>
+
+<div style="display:flex; justify-content:space-between">
+    <button (click)="closeDialog()" mat-raised-button color="accent">Chiudi</button>
+    <button mat-raised-button color="primary" (click)="save()">Salva</button>
+</div>
+</div>

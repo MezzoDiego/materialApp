@@ -1,0 +1,83 @@
+<mat-toolbar color="primary">
+    <span class="fill-remaining-space">My First Form with Material</span>
+</mat-toolbar>
+
+<div class="container" align="center" style="padding: 100px; background-color: rgba(132, 149, 233, 0.529);" novalidate>
+    <mat-card class="form">
+
+        <div *ngIf="errorMessage" style="color:red;">
+            *{{errorMessage}}
+        </div>
+
+        <mat-card-header>
+            <mat-card-title *ngIf="urlFlag =='readOnlyActivated'">Visualizza dettaglio</mat-card-title>
+            <mat-card-title *ngIf="urlFlag =='addActivated'">Inserisci nuovo elemento</mat-card-title>
+            <mat-card-title *ngIf="urlFlag =='editActivated'">Modifica elemento</mat-card-title>
+
+        </mat-card-header>
+        <form style="background-color: white" (ngSubmit)="handleFormRequest()" [formGroup]="userReactive">
+
+                <mat-form-field class="form-element">
+                    <input matInput name="nome" type="text" formControlName="nome" placeholder="inserisci nome..."  >
+                    <mat-error *ngIf="userReactive.get('nome')?.hasError('required')">Nome obbligatorio</mat-error>
+                    <mat-error *ngIf="userReactive.get('nome')?.hasError('minlength')">Il nome deve avere almeno 4 caratteri</mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="form-element">
+                    <input matInput name="cognome" type="text" formControlName="cognome" placeholder="inserisci cognome..." >
+                    <mat-error *ngIf="userReactive.get('cognome')?.hasError('required')">Cognome obbligatorio</mat-error>
+                    <mat-error *ngIf="userReactive.get('cognome')?.hasError('minlength')">Il cognome deve avere almeno 4 caratteri</mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="form-element">
+                    <input matInput name="username" type="text" formControlName="username" placeholder="inserisci username..." >
+                    <mat-error *ngIf="userReactive.get('username')?.hasError('required')">Username obbligatorio</mat-error>
+                    <mat-error *ngIf="userReactive.get('username')?.hasError('minlength')">Lo Username deve avere almeno 3 caratteri</mat-error>
+                    <mat-error *ngIf="userReactive.get('username')?.hasError('maxlength')">Lo Username deve avere massimo 15 caratteri</mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="form-element" *ngIf="urlFlag =='addActivated'">
+                    <input matInput name="password" type="password" formControlName="password" placeholder="inserisci password..."  >
+                    <mat-error *ngIf="userReactive.get('password')?.hasError('required')">Password obbligatoria</mat-error>
+                    <mat-error *ngIf="userReactive.get('password')?.hasError('minlength')">La Password deve avere almeno 3 caratteri</mat-error>
+                    <mat-error *ngIf="userReactive.get('password')?.hasError('maxlength')">La Password deve avere massimo 15 caratteri</mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="form-element" *ngIf="urlFlag =='addActivated'">
+                    <input matInput name="confermaPassword" type="password" formControlName="confermaPassword" placeholder="conferma password..."  >
+                    <mat-error *ngIf="userReactive.get('confermaPassword')?.hasError('required')">Campo Conferma Password obbligatorio</mat-error>
+                    <mat-error *ngIf="userReactive.get('confermaPassword')?.hasError('minlength')">La Password di conferma deve avere almeno 3 caratteri</mat-error>
+                    <mat-error *ngIf="userReactive.get('confermaPassword')?.hasError('maxlength')">La Password di conferma deve avere massimo 15 caratteri</mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="fill" class="form-element">
+                    <mat-label>Choose a date</mat-label>
+                    <input matInput [matDatepicker]="picker" name="dataDiNascita" formControlName="dataDiNascita" placeholder="dd/MM/yyyy" >
+                    <mat-hint>DD/MM/YYYY</mat-hint>
+                    <mat-error *ngIf="userReactive.get('dataDiNascita')?.hasError('required')">Data Di Nascita obbligatoria</mat-error>
+                    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                  </mat-form-field>
+
+                  <mat-form-field appearance="fill" class="form-element" *ngIf="urlFlag != 'readOnlyActivated'">
+                    <mat-label>Ruolo</mat-label>
+                    <mat-select formControlName="ruolo">
+                        <mat-option value="">Seleziona</mat-option>
+                        <mat-option *ngFor="let ruoloItem of ruoli" [value]="ruoloItem">
+                            {{ruoloItem.descrizione}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="userReactive.get('ruolo')?.hasError('required')">Campo Ruolo obbligatorio.</mat-error>
+                  </mat-form-field>
+                  
+
+            <div class="form-element">
+                <button mat-raised-button color="primary" type="submit" class="button" *ngIf="urlFlag != 'readOnlyActivated'">Submit Form</button>
+            </div>
+            <div class="form-element">
+                <button mat-raised-button color="accent" type="submit" class="button" routerLink="list">Back</button>
+            </div>
+
+        </form>
+    </mat-card>
+</div>

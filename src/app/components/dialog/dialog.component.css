@@ -1,0 +1,15 @@
+.main-container {
+    padding: 50px;
+    justify-content: center;
+}
+
+.title {
+    font-size: large;
+    font-weight: bold;
+
+}
+
+.row {
+    padding: 10px;
+    margin: auto;
+}
